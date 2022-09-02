@@ -1,0 +1,169 @@
+name: 'Run Actions based for Python Project'
+description: 'Run actions for Python Project on pull requests to improve code review experience.'
+author: 'dciborow'
+inputs:
+  # Python Project Configuration is expected to be in a pyproject.toml
+  root:
+    description: |
+      Project root directory.
+      Default '.'
+    default: '.'
+  toml:
+    description: |
+      pyproject.toml location.
+      Default pyproject.toml
+    default: 'pyproject.toml'
+  
+  # Python Tooling
+  black:
+    description: |
+      Run Black
+      Default is false.
+    default: false
+  bandit:
+    description: |
+      Run Bandit
+      Default is false.
+    default: false
+  pylint:
+    description: |
+      Run Pylint
+      Default is false.
+    default: false
+  pyright:
+    description: |
+      Run Pyright
+      Default is false.
+    default: false
+  flake8:
+    description: |
+      Run Flake8
+      Default is false.
+    default: false
+  pytest:
+    description: |
+      Run tests with PyTest
+      Default is false.
+    default: false
+  pypi_publish:
+    description: |
+      Publish to PyPi
+      Default is false
+    default: false
+
+  # Advanced Settings
+  args:
+    description: |
+      Customize which tests run with Pytest Markers
+    default: ''
+  pypi_repo:
+    description: |
+      PyPi Target. Use this to point to private or test locations.      
+      Default testpypi
+    default: 'pypi'
+  pypi_password: 
+    description: |
+      Credentials for PyPi
+    default: ''
+  version_suffix:
+    description: |
+      Value to append to version in order to produce unique id for PyPi.
+      Examples include: 
+        '-rc {{ github.run_attempt }}'
+        '-dev {{ github.run_attempt }}'
+    default: ''
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
+  workdir:
+    description: 'Working directory relative to the root directory.'
+    default: 'src'
+
+  ### Flags for reviewdog ###
+  level:
+    description: 'Report level for reviewdog [info,warning,error]'
+    default: 'error'
+  reporter:
+    description: 'Reporter of reviewdog command [github-pr-check,github-pr-review].'
+    default: 'github-pr-check'
+  filter_mode:
+    description: |
+      Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
+      Default is added.
+    default: 'added'
+  fail_on_error:
+    description: |
+      Exit code for reviewdog when errors are found [true,false]
+      Default is `false`.
+    default: 'false'
+  reviewdog_flags:
+    description: 'Additional reviewdog flags'
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - if: ${{ inputs.black == 'true' }}
+      uses: rickstaa/action-black@v1
+      id: action_black
+      with:
+        black_args: "--config ${{ inputs.root }}/${{ inputs.toml }} ${{ inputs.root }}/${{ inputs.workdir }} ${{ inputs.root }}/tests"
+    - if: steps.action_black.outputs.is_formatted == 'true'
+      uses: reviewdog/action-suggester@v1
+      with:
+        tool_name: blackfmt
+        fail_on_error: true
+
+    - if: ${{ inputs.bandit  == 'true' }}
+      uses: dciborow/action-bandit@0.0.2
+      with:
+        workdir: ${{ inputs.root }}
+
+    - if: ${{ inputs.flake8  == 'true' }}
+      uses: reviewdog/action-flake8@v3
+      with:
+        github_token: ${{ inputs.github_token }}
+        workdir: ${{ inputs.root }}/${{ inputs.workdir }}
+
+    - if: ${{ inputs.pylint == 'true' }}
+      uses: dciborow/action-pylint@0.0.4
+      with:
+        github_token: ${{ inputs.github_token }}
+        workdir: ${{ inputs.root }}/${{ inputs.workdir }}
+
+    - if: ${{ inputs.pyright == 'true' }}
+      uses: jakebailey/pyright-action@v1.1.0
+      with:
+        working-directory: ${{ inputs.root }}
+        project: ${{ inputs.toml }}
+
+    - if: ${{ inputs.pytest == 'true' || inputs.pypi_publish  == 'true' }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.7'
+    - if: ${{ inputs.pytest == 'true' }}
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest flit
+        cd "${{ inputs.root }}"
+        python -m flit install
+        python -m pytest '${{ inputs.args }}' tests
+      shell: bash
+
+    - if: ${{ inputs.pypi_publish == 'true' }}
+      run: |
+        cd "${{ inputs.root }}"
+
+        python -m pip install --upgrade pip
+        python -m pip install flit
+        
+        sed -i -r 's/[0-9]\.[0-9]\.[0-9]+/&${{ inputs.version_suffix }}/g' src/*/__init__.py
+        python -m flit publish $repository --repository ${{ inputs.pypi_repo }} --pypirc .pypirc
+      env:
+        FLIT_USERNAME: __token__
+        FLIT_PASSWORD: ${{ inputs.pypi_password }}
+      shell: bash
+
+# Ref: https://haya14busa.github.io/github-action-brandings/
+branding:
+  icon: 'check'
+  color: 'blue'
