@@ -1,9 +1,9 @@
-# python-action
-[![Test](https://github.com/dciborow/pyaction/workflows/Test/badge.svg)](https://github.com/dciborow/pyaction/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/dciborow/pyaction/workflows/reviewdog/badge.svg)](https://github.com/dciborow/pyaction/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/dciborow/pyaction/workflows/depup/badge.svg)](https://github.com/dciborow/pyaction/actions?query=workflow%3Adepup)
-[![release](https://github.com/dciborow/pyaction/workflows/release/badge.svg)](https://github.com/dciborow/pyaction/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/dciborow/pyaction?logo=github&sort=semver)](https://github.com/dciborow/pyaction/releases)
+# action-python
+[![Test](https://github.com/microsoft/action-python/workflows/Test/badge.svg)](https://github.com/microsoft/action-python/actions?query=workflow%3ATest)
+[![reviewdog](https://github.com/microsoft/action-python/workflows/reviewdog/badge.svg)](https://github.com/microsoft/action-python/actions?query=workflow%3Areviewdog)
+[![depup](https://github.com/microsoft/action-python/workflows/depup/badge.svg)](https://github.com/microsoft/action-python/actions?query=workflow%3Adepup)
+[![release](https://github.com/microsoft/action-python/workflows/release/badge.svg)](https://github.com/microsoft/action-python/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/microsoft/action-python?logo=github&sort=semver)](https://github.com/microsoft/action-python/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
 This repo contains a action to run various Python tools including:
