@@ -1,4 +1,4 @@
-name: 'Python Actions'
+name: 'Python Actions Collection'
 description: 'Run actions for Python Project on pull requests to improve code review experience.'
 author: 'dciborow'
 inputs:
