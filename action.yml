@@ -101,14 +101,13 @@ inputs:
     default: ''
 runs:
   using: "composite"
-  with:
-    workdir: ${{ inputs.root }}
-    toml: ${{ inputs.toml }}
-    root: ${{ inputs.root }}
-    github_token: ${{ inputs.github_token }}
   steps:
     - if: ${{ inputs.black == 'true' }}
       uses: ./black
+      with:
+        workdir: ${{ inputs.root }}
+        toml: ${{ inputs.toml }}
+        root: ${{ inputs.root }}
 
     - if: ${{ inputs.bandit  == 'true' }}
       uses: dciborow/action-bandit@0.0.2
