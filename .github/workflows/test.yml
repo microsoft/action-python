@@ -21,7 +21,7 @@ jobs:
           clean: true
       - uses: actions/checkout@v3
         with:
-          path: pyaction
+          path: action-python
           clean: true
 
       - uses: actions/setup-python@v1
@@ -30,7 +30,7 @@ jobs:
 
       # Test the action with no enabled steps.
       - name: NoOps
-        uses: ./pyaction
+        uses: ./action-python
         with:
           black: false
           bandit: false
@@ -42,7 +42,7 @@ jobs:
 
       # Test the action with all enabled steps.
       - name: All Ops
-        uses: ./pyaction
+        uses: ./action-python
         with:
           black: true
           bandit: true
