@@ -103,7 +103,7 @@ runs:
   using: "composite"
   steps:
     - if: ${{ inputs.black == 'true' }}
-      uses: microsoft/action-python/black@dciborow/action-black
+      uses: ./black
       with:
         workdir: ${{ inputs.root }}
         toml: ${{ inputs.toml }}
