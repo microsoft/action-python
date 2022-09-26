@@ -1,0 +1,76 @@
+name: 'Python Actions Collection'
+description: 'Run actions for Python Project on pull requests to improve code review experience.'
+author: 'dciborow'
+inputs:
+  # Python Project Configuration is expected to be in a pyproject.toml
+  root:
+    description: |
+      Project root directory.
+      Default '.'
+    default: '.'
+  toml:
+    description: |
+      pyproject.toml location.
+      Default pyproject.toml
+    default: 'pyproject.toml'
+
+  # Advanced Settings
+  args:
+    description: |
+      Customize which tests run with Pytest Markers
+    default: ''
+  pypi_repo:
+    description: |
+      PyPi Target. Use this to point to private or test locations.      
+      Default testpypi
+    default: 'pypi'
+  pypi_password: 
+    description: |
+      Credentials for PyPi
+    default: ''
+  version_suffix:
+    description: |
+      Value to append to version in order to produce unique id for PyPi.
+      Examples include: 
+        '-rc {{ github.run_attempt }}'
+        '-dev {{ github.run_attempt }}'
+    default: ''
+  github_token:
+    description: 'GITHUB_TOKEN'
+    default: '${{ github.token }}'
+  workdir:
+    description: 'Working directory relative to the root directory.'
+    default: 'src'
+
+  ### Flags for reviewdog ###
+  level:
+    description: 'Report level for reviewdog [info,warning,error]'
+    default: 'error'
+  reporter:
+    description: 'Reporter of reviewdog command [github-pr-check,github-pr-review].'
+    default: 'github-pr-check'
+  filter_mode:
+    description: |
+      Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
+      Default is added.
+    default: 'added'
+  fail_on_error:
+    description: |
+      Exit code for reviewdog when errors are found [true,false]
+      Default is `false`.
+    default: 'false'
+  reviewdog_flags:
+    description: 'Additional reviewdog flags'
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - uses: ./black
+      id: action_black
+      with:
+        black_args: "--config ${{ inputs.root }}/${{ inputs.toml }} ${{ inputs.root }}/${{ inputs.workdir }} ${{ inputs.root }}/tests"
+    - if: steps.action_black.outputs.is_formatted == 'true'
+      uses: reviewdog/action-suggester@v1
+      with:
+        tool_name: blackfmt
+        fail_on_error: true
