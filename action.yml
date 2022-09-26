@@ -101,6 +101,11 @@ inputs:
     default: ''
 runs:
   using: "composite"
+  default:
+    workdir: ${{ inputs.root }}
+    toml: ${{ inputs.toml }}
+    root: ${{ inputs.root }}
+    github_token: ${{ inputs.github_token }}
   steps:
     - if: ${{ inputs.black == 'true' }}
       uses: ./black
