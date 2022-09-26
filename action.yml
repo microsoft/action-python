@@ -101,7 +101,7 @@ inputs:
     default: ''
 runs:
   using: "composite"
-  defaults:
+  with:
     workdir: ${{ inputs.root }}
     toml: ${{ inputs.toml }}
     root: ${{ inputs.root }}
