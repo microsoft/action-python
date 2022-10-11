@@ -6,7 +6,7 @@ on:
     secrets:
       PAT:
         required: false
-      GITHUB_TOKEN:
+      github_token:
         required: false
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.github_token }}
           tag_prefix: "v"
           dry_run: true
           default_bump: false
