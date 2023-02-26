@@ -148,7 +148,7 @@ runs:
         python -m pip install --upgrade pip
         python -m pip install pytest flit
         cd "${{ inputs.root }}/${{ inputs.workdir }}"
-        python -m flit install
+        python -m flit install || python -m pip install .
         python -m pytest '${{ inputs.args }}' ${{ inputs.testdir }}
       shell: bash
 
