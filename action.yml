@@ -133,7 +133,7 @@ runs:
     - if: ${{ inputs.pyright == 'true' }}
       uses: jakebailey/pyright-action@v1.1.0
       with:
-        working-directory: ${{ inputs.root }}
+        working-directory: ${{ inputs.root }}/${{ inputs.workdir }}
         project: ${{ inputs.toml }}
 
     - if: ${{ inputs.pytest == 'true' || inputs.pypi_publish  == 'true' }}
