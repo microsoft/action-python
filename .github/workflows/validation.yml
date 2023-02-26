@@ -5,6 +5,9 @@ on:
       workdir:
         type: string
         default: src
+      testdir:
+        type: string
+        default: test
 
 jobs:
   validation:
@@ -20,8 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: ${{ matrix.tools }}
-        uses: microsoft/action-python@0.3.4
+        uses: microsoft/action-python@0.3.6
         with:
           ${{ matrix.tools }}: true
           args: ${{ matrix.args }}
           workdir: ${{ inputs.workdir }}
+          testdir: ${{ inputs.testdir }}
