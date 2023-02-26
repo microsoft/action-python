@@ -106,7 +106,7 @@ runs:
       uses: rickstaa/action-black@v1
       id: action_black
       with:
-        black_args: "--config ${{ inputs.root }}/${{ inputs.toml }} ${{ inputs.root }}/${{ inputs.workdir }} ${{ inputs.root }}/tests"
+        black_args: "--config ${{ inputs.root }}/${{ inputs.toml }} ${{ inputs.root }}/${{ inputs.workdir }}"
     - if: steps.action_black.outputs.is_formatted == 'true'
       uses: reviewdog/action-suggester@v1
       with:
