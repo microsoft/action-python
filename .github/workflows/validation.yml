@@ -1,6 +1,10 @@
 name: Python
 on:
   workflow_call:    
+    inputs:
+      workdir:
+        type: string
+        default: src
 
 jobs:
   validation:
@@ -20,3 +24,4 @@ jobs:
         with:
           ${{ matrix.tools }}: true
           args: ${{ matrix.args }}
+          workdir: ${{ inputs.workdir }}
