@@ -126,6 +126,14 @@ runs:
         workdir: ${{ inputs.root }}
 
     - if: ${{ inputs.flake8  == 'true' }}
+      run: |
+        if [ $(cat pyproject.toml | grep "tool.flake8") ]; then
+          python -m pip install --upgrade pip
+          python -m pip install flake8-pyproject
+        fi
+      shell: bash
+
+    - if: ${{ inputs.flake8  == 'true' }}
       uses: reviewdog/action-flake8@v3
       with:
         github_token: ${{ inputs.github_token }}
