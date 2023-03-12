@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v2
         with: 
           repository: microsoft/python-package-template
-          ref: 'dciborow/pyproject'
           path: pyproject
           clean: true
       - uses: actions/checkout@v3
