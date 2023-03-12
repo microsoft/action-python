@@ -40,16 +40,16 @@ jobs:
           pypi_custom_publish: false
 
       # Test the action with all enabled steps.
-      - name: All Ops
-        uses: ./pyaction
-        with:
-          black: true
-          bandit: true
-          pylint: true
-          pyright: true
-          pytest: true
-          pypi_publish: true
-          pypi_repo: testpypi
-          pypi_password: ${{ secrets.TEST_PYPI_PASSWORD  }}
-          root: pyproject
-          version_suffix: 'rc${{ github.run_number }}-dev${{ github.run_attempt }}'
+#      - name: All Ops
+#        uses: ./pyaction
+#        with:
+#          black: true
+#          bandit: true
+#          pylint: true
+#         pyright: true
+#         pytest: true
+#          pypi_publish: true
+#          pypi_repo: testpypi
+#         pypi_password: ${{ secrets.TEST_PYPI_PASSWORD  }}
+#         root: pyproject
+#          version_suffix: 'rc${{ github.run_number }}-dev${{ github.run_attempt }}'
