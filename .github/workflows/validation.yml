@@ -7,7 +7,7 @@ on:
         default: src
       testdir:
         type: string
-        default: test
+        default: tests
 
 jobs:
   validation:
