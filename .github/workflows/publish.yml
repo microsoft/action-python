@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Publish Snapshot to TestPyPi
-        uses: dciborow/pyaction@0.0.30
+        uses: dciborow/pyaction@0.3.15
         continue-on-error: true
         if: ${{ github.event_name == 'pull_request' }}
         with:
@@ -24,7 +24,7 @@ jobs:
           version_suffix: -post${{ github.run_number }}-dev${{ github.run_attempt }}
 
       - name: Publish RC to PyPi
-        uses: dciborow/pyaction@0.0.30
+        uses: dciborow/pyaction@0.3.15
         if: ${{ github.event_name == 'push' }}
         with:
           pypi_publish: true
@@ -32,7 +32,7 @@ jobs:
           version_suffix: -rc${{ github.run_number }}-post${{ github.run_attempt }}
 
       - name: Publish Release to PyPi
-        uses: dciborow/pyaction@0.0.30
+        uses: dciborow/pyaction@0.3.15
         if: ${{ github.event_name == 'release' }}
         with:
           pypi_publish: true
