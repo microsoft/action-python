@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Publish Snapshot to TestPyPi
-        uses: dciborow/pyaction@0.3.15
+        uses: microsoft/pyaction@0.3.16
         continue-on-error: true
         if: ${{ github.event_name == 'pull_request' }}
         with:
@@ -29,7 +29,7 @@ jobs:
           workdir: ${{ inputs.workdir }}
 
       - name: Publish RC to PyPi
-        uses: dciborow/pyaction@0.3.15
+        uses: microsoft/pyaction@0.3.16
         if: ${{ github.event_name == 'push' }}
         with:
           pypi_publish: true
@@ -38,7 +38,7 @@ jobs:
           workdir: ${{ inputs.workdir }}
 
       - name: Publish Release to PyPi
-        uses: dciborow/pyaction@0.3.15
+        uses: microsoft/pyaction@0.3.16
         if: ${{ github.event_name == 'release' }}
         with:
           pypi_publish: true
