@@ -8,6 +8,9 @@ on:
       testdir:
         type: string
         default: tests
+      python-version: 
+        type: string
+        default: 3.11.2
 
 jobs:
   validation:
@@ -22,6 +25,11 @@ jobs:
             args: -m integration
     steps:
       - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v4.6.0
+        with:
+          # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+          python-version: ${{ inputs.python-version }}
       - name: ${{ matrix.tools }}
         uses: microsoft/action-python@0.3.15
         with:
