@@ -34,6 +34,7 @@ jobs:
           pypi_repo: testpypi
           version_suffix: -post${{ github.run_number }}-dev${{ github.run_attempt }}
           workdir: ${{ inputs.workdir }}
+          python_version: ${{ inputs.python-version }}
 
       - name: Publish RC to PyPi
         uses: microsoft/pyaction@0.3.16
@@ -43,6 +44,7 @@ jobs:
           pypi_password: ${{ secrets.PYPI_PASSWORD }}
           version_suffix: -rc${{ github.run_number }}-post${{ github.run_attempt }}
           workdir: ${{ inputs.workdir }}
+          python_version: ${{ inputs.python-version }}
 
       - name: Publish Release to PyPi
         uses: microsoft/pyaction@0.3.16
@@ -51,3 +53,4 @@ jobs:
           pypi_publish: true
           pypi_password: ${{ secrets.PYPI_PASSWORD }}
           workdir: ${{ inputs.workdir }}
+          python_version: ${{ inputs.python-version }}
