@@ -54,7 +54,10 @@ inputs:
       Publish to PyPi
       Default is false
     default: false
-
+  CODECOV_TOKEN:
+    description: |
+      Publish to codecov
+    default: ''
   # Advanced Settings
   args:
     description: |
@@ -162,7 +165,14 @@ runs:
         cd "${{ inputs.root }}/${{ inputs.workdir }}"
         python -m flit install || python -m pip install .
         python -m pytest '${{ inputs.args }}' ${{ inputs.testdir }}
+        
+        flags=$(echo ${${{ inputs.args }}##* :-unittests})
       shell: bash
+    - if: ${{ inputs.CODECOV_TOKEN != '' }}
+      uses: codecov/codecov-action@v3 
+      with:
+        token: ${{ env.CODECOV_TOKEN }}
+        flags: ${{ env.flags }}
 
     - if: ${{ inputs.pypi_publish == 'true' }}
       run: |
