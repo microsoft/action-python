@@ -54,7 +54,6 @@ inputs:
       Publish to PyPi
       Default is false
     default: false
-
   # Advanced Settings
   args:
     description: |
@@ -85,6 +84,12 @@ inputs:
   testdir:
     description: 'Test directory'
     default: 'tests'
+  coverage:
+    description: 'Flags for code coverage'
+    default: true
+  flags:
+    description: 'Flags for code coverage'
+    default: 'unittests'
 
   ### Flags for reviewdog ###
   level:
@@ -163,7 +168,12 @@ runs:
         cd "${{ inputs.root }}/${{ inputs.workdir }}"
         python -m flit install || python -m pip install .
         python -m pytest '${{ inputs.args }}' ${{ inputs.testdir }}
+
       shell: bash
+    - if: ${{ inputs.pytest == 'true' && inputs.coverage == 'true' }}
+      uses: codecov/codecov-action@v3 
+      with:
+        flags: ${{ env.flags }}
 
     - if: ${{ inputs.pypi_publish == 'true' }}
       run: |
