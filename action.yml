@@ -114,6 +114,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ inputs.python_version }}
+        cache: 'pip' # caching pip dependencies
+
     - if: ${{ inputs.black == 'true' }}
       uses: rickstaa/action-black@v1
       id: action_black
@@ -156,11 +161,6 @@ runs:
         working-directory: ${{ inputs.root }}/${{ inputs.workdir }}
         project: ${{ inputs.toml }}
 
-    - if: ${{ inputs.pytest == 'true' || inputs.pypi_publish  == 'true' }}
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ inputs.python_version }}
-        cache: 'pip' # caching pip dependencies
     - if: ${{ inputs.pytest == 'true' }}
       run: |
         python -m pip install --upgrade pip
