@@ -173,7 +173,7 @@ runs:
     - if: ${{ inputs.pytest == 'true' && inputs.coverage == 'true' }}
       uses: codecov/codecov-action@v3 
       with:
-        flags: ${{ env.flags }}
+        flags: ${{ inputs.flags }}
 
     - if: ${{ inputs.pypi_publish == 'true' }}
       run: |
