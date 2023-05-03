@@ -164,7 +164,7 @@ runs:
     - if: ${{ inputs.pytest == 'true' }}
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pytest pytest-xdist flit
+        python -m pip install pytest pytest-xdist pytest-cov flit
         cd "${{ inputs.root }}/${{ inputs.workdir }}"
         python -m flit install || python -m pip install .
         python -m pytest '${{ inputs.args }}' ${{ inputs.testdir }}
