@@ -182,7 +182,7 @@ runs:
         python -m pip install --upgrade pip
         python -m pip install flit
         
-        sed -i -r 's/[0-9]\.[0-9]\.[0-9]+/&${{ inputs.version_suffix }}/g' src/*/__init__.py
+        sed -i -r 's/\"[0-9]\.[0-9]\.[0-9]+\"/&\"${{ inputs.version_suffix }}\"/g' src/*/__init__.py
         python -m flit publish $repository --repository ${{ inputs.pypi_repo }} --pypirc .pypirc
       env:
         FLIT_USERNAME: __token__
