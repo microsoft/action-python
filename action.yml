@@ -157,7 +157,7 @@ runs:
         project: ${{ inputs.toml }}
 
     - if: ${{ inputs.pytest == 'true' || inputs.pypi_publish  == 'true' }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python_version }}
         cache: 'pip' # caching pip dependencies
