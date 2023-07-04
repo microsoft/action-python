@@ -149,10 +149,12 @@ runs:
       with:
         python-version: ${{ inputs.python_version }}
         cache: 'pip' # caching pip dependencies
-    - if: ${{ inputs.pytest == 'true' }}
+
+    - if: ${{ inputs.pylint == 'true' }}
+      shell: bash
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pytest pylint
+        python -m pip install pylint
         cd "${{ inputs.root }}/${{ inputs.workdir }}"
         python -m flit install || python -m pip install .
 
@@ -173,7 +175,9 @@ runs:
       with:
         python-version: ${{ inputs.python_version }}
         cache: 'pip' # caching pip dependencies
+
     - if: ${{ inputs.pytest == 'true' }}
+      shell: bash
       run: |
         python -m pip install --upgrade pip
         python -m pip install pytest pytest-xdist pytest-cov flit requests_mock
@@ -181,13 +185,16 @@ runs:
         python -m flit install || python -m pip install .
         python -m pytest '${{ inputs.args }}' ${{ inputs.testdir }}
 
-      shell: bash
     - if: ${{ inputs.pytest == 'true' && inputs.coverage == 'true' }}
       uses: codecov/codecov-action@v3 
       with:
         flags: ${{ inputs.flags }}
 
     - if: ${{ inputs.pypi_publish == 'true' }}
+      shell: bash
+      env:
+        FLIT_USERNAME: __token__
+        FLIT_PASSWORD: ${{ inputs.pypi_password }}
       run: |
         cd "${{ inputs.root }}"
 
@@ -196,10 +203,6 @@ runs:
         
         sed -i -r 's/\"[0-9]\.[0-9]\.[0-9]+\"/&\"${{ inputs.version_suffix }}\"/g' src/*/__init__.py
         python -m flit publish $repository --repository ${{ inputs.pypi_repo }} --pypirc .pypirc
-      env:
-        FLIT_USERNAME: __token__
-        FLIT_PASSWORD: ${{ inputs.pypi_password }}
-      shell: bash
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
 branding:
