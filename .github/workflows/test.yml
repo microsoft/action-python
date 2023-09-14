@@ -13,12 +13,12 @@ jobs:
         python-version: [3.7]
     steps:
       # Checkout this repo and Python Package Template repo for validation testing.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with: 
           repository: microsoft/python-package-template
           path: pyproject
           clean: true
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: pyaction
           clean: true
