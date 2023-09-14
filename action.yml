@@ -159,7 +159,7 @@ runs:
         python -m flit install || python -m pip install .
 
     - if: ${{ inputs.pylint == 'true' }}
-      uses: dciborow/action-pylint@0.1.0
+      uses: dciborow/action-pylint@0.1.1
       with:
         github_token: ${{ inputs.github_token }}
         workdir: ${{ inputs.root }}/${{ inputs.workdir }}
