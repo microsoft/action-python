@@ -25,7 +25,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Publish Snapshot to TestPyPi
-        uses: microsoft/action-python@0.6.4
+        uses: microsoft/action-python@0.7.1
         continue-on-error: true
         if: ${{ github.event_name == 'pull_request' }}
         with:
@@ -37,7 +37,7 @@ jobs:
           python_version: ${{ inputs.python-version }}
 
       - name: Publish RC to PyPi
-        uses: microsoft/action-python@0.6.4
+        uses: microsoft/action-python@0.7.1
         if: ${{ github.event_name == 'push' }}
         with:
           pypi_publish: true
@@ -47,7 +47,7 @@ jobs:
           python_version: ${{ inputs.python-version }}
 
       - name: Publish Release to PyPi
-        uses: microsoft/action-python@0.6.4
+        uses: microsoft/action-python@0.7.1
         if: ${{ github.event_name == 'release' }}
         with:
           pypi_publish: true
