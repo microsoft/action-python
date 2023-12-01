@@ -28,7 +28,7 @@ jobs:
             args: -m integration
     steps:
       - uses: actions/checkout@v4
-      - uses: Azure/login@v1.4.7
+      - uses: Azure/login@v1.5.1
         continue-on-error: true
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
