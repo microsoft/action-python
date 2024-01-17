@@ -9,6 +9,6 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    time: "13:00"
+    time: "16:00"
   commit-message:
     prefix: "fix: "

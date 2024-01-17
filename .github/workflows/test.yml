@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 jobs:
   test-check:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7]
+        python-version: ['3.10']
     steps:
       # Checkout this repo and Python Package Template repo for validation testing.
       - uses: actions/checkout@v4

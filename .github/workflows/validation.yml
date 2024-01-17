@@ -11,9 +11,6 @@ on:
       python-version: 
         type: string
         default: 3.11.3
-    secrets:
-      AZURE_CREDENTIALS:
-        required: false
 
 jobs:
   validation:
@@ -28,12 +25,8 @@ jobs:
             args: -m integration
     steps:
       - uses: actions/checkout@v4
-      - uses: Azure/login@v1.4.7
-        continue-on-error: true
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: ${{ matrix.tools }}
-        uses: microsoft/action-python@0.7.1
+        uses: ac-analytics/action-python@0.1.0
         with:
           ${{ matrix.tools }}: true
           args: ${{ matrix.args }}

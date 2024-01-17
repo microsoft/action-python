@@ -16,8 +16,8 @@ inputs:
   python_version:
     description: |
       Python Version
-      Default is '3.7'.
-    default: '3.7'
+      Default is '3.10'.
+    default: '3.10'
   # Python Tooling
   black:
     description: |
