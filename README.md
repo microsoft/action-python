@@ -57,7 +57,7 @@ inputs:
     description: |
       PyPi Target. Use this to point to private or test locations.      
       Default https://pypi.org
-    defualt: 'https://pypi.org'
+    default: 'https://pypi.org'
   github_token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
