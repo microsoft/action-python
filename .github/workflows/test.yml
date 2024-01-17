@@ -15,7 +15,7 @@ jobs:
       # Checkout this repo and Python Package Template repo for validation testing.
       - uses: actions/checkout@v4
         with: 
-          repository: microsoft/python-package-template
+          repository: ac-analytics/python-package-template
           path: pyproject
           clean: true
       - uses: actions/checkout@v4

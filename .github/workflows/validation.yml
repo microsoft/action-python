@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.tools }}
-        uses: ac-analytics/action-python@0.1.0
+        uses: ac-analytics/action-python@v0.1.1
         with:
           ${{ matrix.tools }}: true
           args: ${{ matrix.args }}
