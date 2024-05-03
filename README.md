@@ -145,9 +145,14 @@ jobs:
 
 ## Development
 
+### Workflow
+
 1. Create branch
-2. Apply code changes
-3. Pull request
+2. Apply code changes on branch
+3. Edit validation.yml and update the version to next version
+4. Pull request (all github checks should pass)
+5. Add label "bump:patch", "bump:minor" or "bump:major" to update release
+6. Rebase and merge
 
 ### Release
 
