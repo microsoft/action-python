@@ -145,6 +145,10 @@ jobs:
 
 ## Development
 
+1. Create branch
+2. Apply code changes
+3. Pull request
+
 ### Release
 
 #### [haya14busa/action-bumpr](https://github.com/haya14busa/action-bumpr)

@@ -163,6 +163,7 @@ runs:
       with:
         github_token: ${{ inputs.github_token }}
         workdir: ${{ inputs.root }}/${{ inputs.workdir }}
+        glob_pattern: "**/*.py"
 
     - if: ${{ inputs.pyright == 'true' }}
       uses: jakebailey/pyright-action@v1.6.0
