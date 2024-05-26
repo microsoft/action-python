@@ -85,7 +85,9 @@ inputs:
     description: 'Test directory'
     default: 'tests'
   coverage:
-    description: 'Flags for code coverage'
+    description: |
+      Check coverage with Codecov
+      Default is true.
     default: true
   flags:
     description: 'Flags for code coverage'
