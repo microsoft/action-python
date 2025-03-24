@@ -165,7 +165,7 @@ runs:
         workdir: ${{ inputs.root }}/${{ inputs.workdir }}
 
     - if: ${{ inputs.pyright == 'true' }}
-      uses: jakebailey/pyright-action@v1.8.1
+      uses: jakebailey/pyright-action@v2.3.1
       with:
         working-directory: ${{ inputs.root }}/${{ inputs.workdir }}
         project: ${{ inputs.toml }}
